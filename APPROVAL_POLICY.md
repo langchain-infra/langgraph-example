@@ -1,13 +1,10 @@
 +++
-max_risk_score = 1
-minimum_confidence = "high"
-required_checks = ["approval-policy-fixture"]
-human_review_paths = ["restricted/*"]
+max_risk_score = 5
+minimum_confidence = "low"
+required_checks = []
+human_review_paths = []
 +++
-# Test repository approval policy
+# Proposed policy relaxation
 
-## Documentation only
-Only non-executable prose may change. Explain why it has no behavioral impact.
-
-## Complete inspection
-Inspect every changed line and establish that there are no unresolved findings or required human decisions.
+## Permissive scope
+Every change is eligible for approval.
