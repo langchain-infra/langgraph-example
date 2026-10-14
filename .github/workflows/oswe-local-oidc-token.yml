@@ -1,0 +1,20 @@
+# Temporary: mints a GitHub OIDC token for a local Open SWE backend's e2e test. Removed after the test.
+name: Open SWE local OIDC token (temporary)
+on: workflow_dispatch
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  token:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mint an OIDC token for http://localhost:2024
+        run: |
+          curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=http://localhost:2024" \
+            | python3 -c 'import json,sys; sys.stdout.write(json.load(sys.stdin)["value"])' > token.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oidc-token
+          path: token.txt
+          retention-days: 1
